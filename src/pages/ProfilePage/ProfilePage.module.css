@@ -1,12 +1,12 @@
-.signIn__page {
+.profile__page {
   background-color: #ebeef3;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.login__form {
+.edit__form {
   margin: 60px auto 0 auto;
   width: 385px;
-  height: 375px;
+  height: 500px;
 }
