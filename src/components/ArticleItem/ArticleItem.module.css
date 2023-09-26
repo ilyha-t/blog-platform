@@ -1,0 +1,79 @@
+.article {
+  width: 940px;
+  height: 140px;
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  display: flex;
+  font-family: Inter;
+  padding: 15px 14px 24px 19px;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.article__content_left {
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.article__title {
+  color: #1890ff;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.article__tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.article__tag {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+  font-weight: 400;
+  padding: 3px;
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+}
+
+.article__content {
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: justify;
+}
+
+.article__author {
+  display: flex;
+  gap: 12px;
+}
+
+.article__author_info {
+  display: flex;
+  flex-direction: column;
+}
+
+.article__author__name {
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.article__author__date {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.article__author_img {
+  width: 46px;
+  height: 46px;
+}
