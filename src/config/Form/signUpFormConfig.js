@@ -6,26 +6,19 @@ const signUpForm = {
       type: 'text',
       label: 'Username',
       validate: {
-        name: 'validateUsername',
+        name: 'username',
         rules: {
           required: true,
-          validate: {
-            matchPattern: (email) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email),
-          },
         },
-        errors: [
-          { type: 'required', message: 'Username is required' },
-          { type: 'matchPattern', message: 'Username is not valid' },
-        ],
+        errors: [{ type: 'required', message: 'Username is required' }],
       },
-      stateName: 'username',
     },
     {
       id: 'email',
       type: 'text',
       label: 'Email address',
       validate: {
-        name: 'validateEmail',
+        name: 'email',
         rules: {
           required: true,
           validate: {
@@ -37,40 +30,51 @@ const signUpForm = {
           { type: 'matchPattern', message: 'Email is not valid' },
         ],
       },
-      stateName: 'email',
     },
     {
       id: 'password',
       type: 'password',
       label: 'Password',
       validate: {
-        name: 'validatePassword',
+        name: 'password',
         rules: { required: true },
         errors: [{ type: 'required', message: 'Password is required' }],
       },
-      stateName: 'password',
     },
     {
       id: 'passwordRepeat',
       type: 'password',
       label: 'Repeat Password',
       validate: {
-        name: 'validatePasswordRepeat',
+        name: 'passwordRepeat',
         rules: { required: true },
         errors: [{ type: 'required', message: 'Password is required' }],
       },
-      stateName: 'passwordRepeat',
     },
     {
       id: 'agreePersonal',
       type: 'checkbox',
       label: 'I agree to the processing of my personal information',
       validate: {
-        name: 'validatePasswordRepeat',
+        name: 'agreePersonal',
         rules: { required: true },
-        errors: [{ type: 'required', message: 'Password is required' }],
+        errors: [
+          {
+            type: 'required',
+            message: 'Accept processing personal information',
+            style: { top: '-25px' },
+          },
+        ],
       },
-      stateName: 'passwordRepeat',
+      customClass: {
+        marginTop: '10px',
+        flexDirection: 'row',
+        alignItems: 'start',
+        gap: '8px',
+        cursor: 'pointer',
+        borderTop: '2px solid #eaeae0',
+        paddingTop: '5px',
+      },
     },
   ],
   contentBtn: 'Create',
@@ -81,12 +85,6 @@ const signUpForm = {
       <span> Sign In</span>
     </p>
   ),
-  state: [
-    { name: 'username', initialValue: '' },
-    { name: 'email', initialValue: '' },
-    { name: 'password', initialValue: '' },
-    { name: 'passwordRepeat', initialValue: '' },
-  ],
 };
 
 export { signUpForm };

@@ -1,34 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import errorIcon from './assets/errorIcon.svg';
 import cl from './TemplateForm.module.css';
 
-function TemplateForm({ className, content }) {
-  const initialState = {};
-
-  content.state.forEach((field) => {
-    initialState[field.name] = field.initialValue;
-  });
-
-  const [formState, setFormState] = useState(initialState);
-  console.log(formState);
-
+function TemplateForm({ className, content, handleAction }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
-
   return (
     <section className={`${className} ${cl.form}`}>
       <h2 className={cl.login__title}>{content.title}</h2>
-      <form className={cl.login__form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={cl.login__form} onSubmit={handleSubmit((data) => handleAction(data))}>
         {content.inputs.map((input) => (
-          <div className={cl.login__form__item} key={input.id}>
+          <div className={cl.login__form__item} style={input.customClass} key={input.id}>
             <label className={cl.login__form__label} htmlFor={input.id}>
               {input.label}
             </label>
@@ -39,19 +28,12 @@ function TemplateForm({ className, content }) {
               id={input.id}
               type={input.type}
               placeholder={input.label}
-              value={formState[input.stateName]}
-              onChange={(e) =>
-                setFormState({
-                  ...formState,
-                  [input.validate.name]: e.target.value,
-                })
-              }
               {...register(input.validate.name, { ...input.validate.rules })}
             />
             {input.validate.errors.map(
               (error) =>
                 errors[input.validate.name]?.type === error.type && (
-                  <div className={cl.error__message} key={error.type}>
+                  <div className={cl.error__message} style={error.style} key={error.type}>
                     <img src={errorIcon} alt="ErrorIcon" className={cl.error__message__icon} />
                     <p className={cl.error__description}>{error.message}</p>
                   </div>
@@ -64,6 +46,7 @@ function TemplateForm({ className, content }) {
           className={`${cl.login__form__input} ${cl.input_btn}`}
           type="submit"
           value={content.contentBtn}
+          onSubmit={handleSubmit((data) => handleAction(data))}
         />
       </form>
       {content.linkTo && (

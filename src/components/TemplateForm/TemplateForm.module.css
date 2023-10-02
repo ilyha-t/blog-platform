@@ -46,6 +46,7 @@
   border: 1px solid #d9d9d9;
   border-radius: 4px;
   outline: none;
+  cursor: pointer;
 }
 
 .login__form__input_error {
@@ -53,6 +54,9 @@
 }
 
 .error__message {
+  position: absolute;
+  top: -2px;
+  right: 0;
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -60,8 +64,10 @@
 }
 
 .error__message__icon {
+  position: relative;
   width: 15px;
   height: 15px;
+  top: 2px;
 }
 
 .error__description {
@@ -86,9 +92,4 @@
 
 .login__link p span {
   color: #1890ff;
-}
-
-.login__link,
-input {
-  cursor: pointer;
 }
