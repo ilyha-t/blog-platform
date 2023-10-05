@@ -1,6 +1,6 @@
 .signUp__page {
   background-color: #ebeef3;
-  height: 100%;
+  height: inherit;
   display: flex;
   flex-direction: column;
 }
@@ -9,4 +9,8 @@
   margin: 60px auto 0 auto;
   width: 385px;
   height: 600px;
+}
+
+.signUp__page_loading {
+  background-color: #eaeef2 !important;
 }

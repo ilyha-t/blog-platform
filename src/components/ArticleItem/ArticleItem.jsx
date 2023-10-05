@@ -1,29 +1,41 @@
 import React from 'react';
+import { format, parseISO } from 'date-fns';
+import ReactMarkdown from 'react-markdown';
 
 import cl from './ArticleItem.module.css';
 import avatar from './assets/avatar.png';
 
-function ArticleItem() {
+function handleErrorImage(e) {
+  e.target.src = avatar;
+}
+
+function ArticleItem({ article }) {
   return (
     <div className={cl.article}>
       <div className={cl.article__content_left}>
-        <h2 className={cl.article__title}>Article title</h2>
+        <h2 className={cl.article__title}>{article.title}</h2>
         <ul className={cl.article__tags}>
-          <li className={cl.article__tag}>Tag1</li>
-          <li className={cl.article__tag}>Tag2</li>
+          {article.tagList.map((tag) => (
+            <li className={cl.article__tag} key={tag}>
+              {tag}
+            </li>
+          ))}
         </ul>
-        <p className={cl.article__content}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco laboris nisi ut aliquip ex ea commodo consequat.{' '}
-        </p>
+        <ReactMarkdown className={cl.article__content}>{article.body}</ReactMarkdown>
       </div>
       <div className={cl.article__author}>
         <div className={cl.article__author_info}>
-          <p className={cl.article__author__name}>John Doe</p>
-          <span className={cl.article__author__date}>Marth 5, 2020</span>
+          <p className={cl.article__author__name}>{article.author.username}</p>
+          <span className={cl.article__author__date}>
+            {format(parseISO(article.createdAt), 'MMMM d, y')}
+          </span>
         </div>
-        <img src={avatar} alt="AvatarIcon" className={cl.article__author_img} />
+        <img
+          src={article.author.image}
+          onError={handleErrorImage}
+          alt="AvatarIcon"
+          className={cl.article__author_img}
+        />
       </div>
     </div>
   );

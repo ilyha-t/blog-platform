@@ -4,24 +4,14 @@ import ArticleItem from '../ArticleItem/ArticleItem';
 
 import cl from './ArticleList.module.css';
 
-function ArticleList({ className }) {
+function ArticleList({ className, articles }) {
   return (
     <ul className={`${cl.articles} ${className}`}>
-      <li>
-        <ArticleItem />
-      </li>
-      <li>
-        <ArticleItem />
-      </li>
-      <li>
-        <ArticleItem />
-      </li>
-      <li>
-        <ArticleItem />
-      </li>
-      <li>
-        <ArticleItem />
-      </li>
+      {articles.map((article) => (
+        <li key={Date.now()}>
+          <ArticleItem article={article} />
+        </li>
+      ))}
     </ul>
   );
 }

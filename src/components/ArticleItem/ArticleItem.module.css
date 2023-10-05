@@ -46,6 +46,8 @@
   font-weight: 400;
   line-height: 22px;
   text-align: justify;
+  height: 65px;
+  overflow: hidden;
 }
 
 .article__author {
@@ -71,9 +73,11 @@
   font-size: 12px;
   font-weight: 400;
   line-height: 22px;
+  text-align: right;
 }
 
 .article__author_img {
   width: 46px;
   height: 46px;
+  border-radius: 50%;
 }

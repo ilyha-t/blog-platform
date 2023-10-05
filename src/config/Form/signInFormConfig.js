@@ -6,7 +6,7 @@ const signInForm = {
       type: 'text',
       label: 'Email address',
       validate: {
-        name: 'validateEmail',
+        name: 'email',
         rules: {
           required: true,
           validate: {
@@ -18,18 +18,16 @@ const signInForm = {
           { type: 'matchPattern', message: 'Email is not valid' },
         ],
       },
-      stateName: 'email',
     },
     {
       id: 'password',
       type: 'password',
       label: 'Password',
       validate: {
-        name: 'validatePassword',
+        name: 'password',
         rules: { required: true },
         errors: [{ type: 'required', message: 'Password is required' }],
       },
-      stateName: 'password',
     },
   ],
   contentBtn: 'Login',
@@ -40,10 +38,6 @@ const signInForm = {
       <span> Sign Up</span>
     </p>
   ),
-  state: [
-    { name: 'email', initialValue: '' },
-    { name: 'password', initialValue: '' },
-  ],
 };
 
 export { signInForm };
