@@ -29,7 +29,7 @@ function SignInPage() {
     <div className={cl.signIn__page}>
       <Navigation navigationItems={unauthorizationConfig} />
       <TemplateForm className={cl.login__form} content={signInForm} handleAction={logUser} />
-      {status === 'loading' && <DoubleLoader textAction={'Регистрируем..'} />}
+      {status === 'loading' && <DoubleLoader textAction={'Входим..'} />}
     </div>
   );
 }

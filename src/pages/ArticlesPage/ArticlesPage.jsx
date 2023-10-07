@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Pagination } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Navigation from '../../components/Navigation/Navigation';
-import { unauthorizationConfig } from '../../config/NavigationConfig';
+import { authorizationConfig } from '../../config/NavigationConfig';
 import ArticleList from '../../components/ArticleList/ArticleList';
-import { getArticle } from '../../store/articleSlice';
+import { getArticle, setPage } from '../../store/articleSlice';
+import DoubleLoader from '../../components/Loaders/DoubleLoader/DoubleLoader';
+import UserService from '../../services/UserService/UserService';
 
 import cl from './ArticlesPage.module.css';
 
 function ArticlesPage() {
-  const { articles } = useSelector((state) => state.article);
+  const { articles, currentPage } = useSelector((state) => state.article);
   const dispatch = useDispatch();
-  const [filteredArticle, setFilteredArticle] = useState([]);
 
-  function paginationRatedArticle(page = 1) {
+  function paginationRatedArticle(page) {
+    console.log('called');
     const DEFAULT_SHOW = 5;
     const results = articles.list;
     console.log(results);
@@ -23,27 +25,29 @@ function ArticlesPage() {
         results.indexOf(article) < DEFAULT_SHOW * page &&
         results.indexOf(article) >= DEFAULT_SHOW * page - 5
     );
-    setFilteredArticle(afterPagination);
+    console.log(afterPagination);
+    return afterPagination;
   }
 
   useEffect(() => {
-    dispatch(getArticle());
-    paginationRatedArticle();
-  }, []);
+    dispatch(getArticle(currentPage));
+    UserService.getCurrentUser();
+  }, [currentPage]);
 
   return (
     <div className={cl.articles__page}>
-      <Navigation navigationItems={unauthorizationConfig} />
+      <Navigation navigationItems={authorizationConfig} />
       <div className={cl.articles__list}>
-        <ArticleList className={cl.articles_items} articles={filteredArticle} />
+        <ArticleList className={cl.articles_items} articles={paginationRatedArticle(currentPage)} />
         <Pagination
           className={cl.article__pagination}
-          defaultCurrent={1}
+          defaultCurrent={currentPage}
           defaultPageSize={5}
-          total={articles.list.length}
+          total={articles.articlesCount}
           showSizeChanger={false}
-          onChange={(newPage) => paginationRatedArticle(newPage)}
+          onChange={(newPage) => dispatch(setPage({ newPage }))}
         />
+        {articles.status == 'loading' && <DoubleLoader textAction={'Загружаем...'} />}
       </div>
     </div>
   );

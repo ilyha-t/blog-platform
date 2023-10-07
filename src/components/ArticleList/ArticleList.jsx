@@ -8,7 +8,7 @@ function ArticleList({ className, articles }) {
   return (
     <ul className={`${cl.articles} ${className}`}>
       {articles.map((article) => (
-        <li key={Date.now()}>
+        <li key={article.slug}>
           <ArticleItem article={article} />
         </li>
       ))}

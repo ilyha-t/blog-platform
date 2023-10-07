@@ -1,4 +1,5 @@
 .form {
+  font-family: 'Roboto';
   box-sizing: border-box;
   padding: 48px 32px;
   display: flex;
@@ -13,12 +14,13 @@
     0px 4.91399px 23.67649px 0px rgba(0, 0, 0, 0.04),
     0px 9.19107px 44.28427px 0px rgba(0, 0, 0, 0.05),
     0px 22px 106px 0px rgba(0, 0, 0, 0.07);
+  overflow: auto;
 }
 
 .login__title {
   text-align: center;
   font-size: 25px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 28px;
   color: #262626;
 }
@@ -46,7 +48,6 @@
   border: 1px solid #d9d9d9;
   border-radius: 4px;
   outline: none;
-  cursor: pointer;
 }
 
 .login__form__input_error {

@@ -47,9 +47,8 @@ const userSlice = createSlice({
       state.status = 'loading';
       state.error = null;
     },
-    [createUser.fulfilled]: (state, action) => {
+    [createUser.fulfilled]: (state) => {
       state.status = 'resolved';
-      localStorage.setItem('userData', JSON.stringify(action.payload));
     },
     [createUser.rejected]: setError,
 

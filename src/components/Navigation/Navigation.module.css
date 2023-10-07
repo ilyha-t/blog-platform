@@ -12,11 +12,13 @@
   display: flex;
   gap: 20px;
   list-style-type: none;
+  align-items: center;
 }
 
 .navigation__item {
   display: inline-block;
   border-radius: 5px;
+  gap: 27px;
 }
 
 .navigation__link {

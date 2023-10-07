@@ -1,0 +1,19 @@
+.user {
+  display: flex;
+  gap: 13px;
+  height: 48px;
+  width: 150px;
+  align-items: center;
+}
+
+.user__name {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.user__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}

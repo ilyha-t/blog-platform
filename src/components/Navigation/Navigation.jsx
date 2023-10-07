@@ -13,18 +13,18 @@ function Navigation({ navigationItems }) {
       </Link>
       <ul className={cl.navigation__links}>
         {navigationItems.map((navigation) => (
-          <li
-            className={cl.navigation__item}
-            style={{ border: `1px solid ${navigation.color}` }}
-            key={navigation.id}
-          >
-            <Link
-              to={navigation.path}
-              className={cl.navigation__link}
-              style={{ color: navigation.color }}
-            >
-              {navigation.title}
-            </Link>
+          <li className={cl.navigation__item} key={navigation.id}>
+            {navigation.isFragment ? (
+              navigation.fragment
+            ) : (
+              <Link
+                to={navigation.path}
+                className={cl.navigation__link}
+                style={{ ...navigation.styles }}
+              >
+                {navigation.title}
+              </Link>
+            )}
           </li>
         ))}
       </ul>

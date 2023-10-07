@@ -8,6 +8,8 @@
   padding: 15px 14px 24px 19px;
   justify-content: space-between;
   box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
 }
 
 .article__content_left {
@@ -17,11 +19,22 @@
   gap: 8px;
 }
 
+.article__title_block {
+  display: flex;
+  gap: 13px;
+}
+
 .article__title {
   color: #1890ff;
   font-size: 20px;
   font-weight: 400;
   line-height: 28px;
+}
+
+.article__title_favoriteCount {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .article__tags {
@@ -58,6 +71,7 @@
 .article__author_info {
   display: flex;
   flex-direction: column;
+  width: 250px;
 }
 
 .article__author__name {
@@ -66,6 +80,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 28px;
+  text-align: right;
 }
 
 .article__author__date {

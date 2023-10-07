@@ -3,6 +3,6 @@
   flex-direction: column;
   gap: 10px;
   list-style-type: none;
-  max-height: 720px;
-  overflow: hidden;
+  max-height: 750px;
+  overflow: scroll;
 }

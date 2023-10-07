@@ -1,12 +1,11 @@
-.signIn__page {
+.article__edit {
   background-color: #ebeef3;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.login__form {
-  margin: 60px auto 0 auto;
-  width: 385px;
-  height: 376px;
+.article__form {
+  width: 940px;
+  margin: 34px auto;
 }

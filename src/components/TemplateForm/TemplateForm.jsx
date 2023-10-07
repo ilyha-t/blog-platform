@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
+import UniversalInput from './UniversalInput/UniversalInput';
 import errorIcon from './assets/errorIcon.svg';
 import cl from './TemplateForm.module.css';
 
@@ -21,12 +22,14 @@ function TemplateForm({ className, content, handleAction }) {
             <label className={cl.login__form__label} htmlFor={input.id}>
               {input.label}
             </label>
-            <input
+            <UniversalInput
+              elementType={input.tagType}
               className={`${cl.login__form__input} ${
                 errors[input.validate.name] && cl.login__form__input_error
               }`}
               id={input.id}
               type={input.type}
+              style={{ ...input.styles }}
               placeholder={input.label}
               {...register(input.validate.name, { ...input.validate.rules })}
             />
@@ -42,11 +45,14 @@ function TemplateForm({ className, content, handleAction }) {
           </div>
         ))}
 
+        {content.otherContent}
+
         <input
           className={`${cl.login__form__input} ${cl.input_btn}`}
           type="submit"
           value={content.contentBtn}
           onSubmit={handleSubmit((data) => handleAction(data))}
+          style={{ ...content.contentBtnStyle }}
         />
       </form>
       {content.linkTo && (
