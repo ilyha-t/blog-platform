@@ -35,6 +35,19 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const getCurrentUser = createAsyncThunk(
+  'user/getCurrentUser',
+  async function (_, { rejectWithValue }) {
+    try {
+      const user = await UserService.getCurrentUser();
+      return user;
+    } catch (error) {
+      console.log('error');
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: 'user',
   initialState: {
@@ -61,6 +74,10 @@ const userSlice = createSlice({
       localStorage.setItem('userData', JSON.stringify(action.payload));
     },
     [loginUser.rejected]: setError,
+    [getCurrentUser.fulfilled]: (state, action) => {
+      state.user = action.payload;
+    },
+    [getCurrentUser.rejected]: setError,
   },
 });
 

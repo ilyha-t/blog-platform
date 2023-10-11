@@ -42,7 +42,7 @@ export const authorizationConfig = [
     id: 3,
     isFragment: false,
     title: 'Log Out',
-    path: '/sign-up',
+    path: '/',
     styles: {
       borderRadius: '5px',
       border: '1px solid rgba(0, 0, 0, 0.75)',

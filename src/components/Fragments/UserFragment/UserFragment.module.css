@@ -1,8 +1,6 @@
 .user {
   display: flex;
   gap: 13px;
-  height: 48px;
-  width: 150px;
   align-items: center;
 }
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import Button from '../Button/Button';
 
@@ -15,8 +15,7 @@ const addBtn = {
 };
 
 function TagsFragment() {
-  const ref = useRef();
-  const [tags, setTags] = useState([{ id: Date.now(), name: '' }]);
+  const [tags, setTags] = useState([]);
 
   function addTag(event) {
     event.preventDefault();
@@ -34,7 +33,7 @@ function TagsFragment() {
       <span>Tags</span>
       <ul className={cl.tags}>
         {tags.map((tag, index) => (
-          <li className={cl.tags__item} ref={ref} key={tag.id} data-input-id={tag.id}>
+          <li className={cl.tags__item} key={tag.id} data-input-id={tag.id}>
             <input
               type="text"
               className={cl.tags__input}

@@ -39,17 +39,21 @@ export default class UserService {
 
   static async getCurrentUser() {
     try {
-      const token = JSON.parse(localStorage.getItem('userData')).user.token;
-
-      if (token) {
+      if (localStorage.getItem('userData')) {
+        const token = JSON.parse(localStorage.getItem('userData')).user.token;
         const response = await fetch(`${BASE_URL}/user`, {
           method: 'GET',
           headers: {
             Authorization: `Token ${token}`,
+            'Content-Type': 'application/json',
           },
         });
 
-        console.log(await response.json());
+        if (response.ok) {
+          return await response.json();
+        }
+      } else {
+        return;
       }
     } catch (e) {
       throw Error(e);

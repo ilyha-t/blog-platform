@@ -19,6 +19,7 @@
   display: inline-block;
   border-radius: 5px;
   gap: 27px;
+  align-items: center;
 }
 
 .navigation__link {

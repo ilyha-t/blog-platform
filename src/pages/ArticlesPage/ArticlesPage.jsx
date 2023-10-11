@@ -3,16 +3,17 @@ import { Pagination } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Navigation from '../../components/Navigation/Navigation';
-import { authorizationConfig } from '../../config/NavigationConfig';
+import { authorizationConfig, unauthorizationConfig } from '../../config/NavigationConfig';
 import ArticleList from '../../components/ArticleList/ArticleList';
 import { getArticle, setPage } from '../../store/articleSlice';
 import DoubleLoader from '../../components/Loaders/DoubleLoader/DoubleLoader';
-import UserService from '../../services/UserService/UserService';
+import { getCurrentUser } from '../../store/userSlice';
 
 import cl from './ArticlesPage.module.css';
 
 function ArticlesPage() {
   const { articles, currentPage } = useSelector((state) => state.article);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   function paginationRatedArticle(page) {
@@ -31,12 +32,12 @@ function ArticlesPage() {
 
   useEffect(() => {
     dispatch(getArticle(currentPage));
-    UserService.getCurrentUser();
+    dispatch(getCurrentUser());
   }, [currentPage]);
 
   return (
     <div className={cl.articles__page}>
-      <Navigation navigationItems={authorizationConfig} />
+      <Navigation navigationItems={user ? authorizationConfig : unauthorizationConfig} />
       <div className={cl.articles__list}>
         <ArticleList className={cl.articles_items} articles={paginationRatedArticle(currentPage)} />
         <Pagination
