@@ -43,6 +43,7 @@ export const authorizationConfig = [
     isFragment: false,
     title: 'Log Out',
     path: '/',
+    handler: () => localStorage.removeItem('userData'),
     styles: {
       borderRadius: '5px',
       border: '1px solid rgba(0, 0, 0, 0.75)',

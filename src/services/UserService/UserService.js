@@ -59,4 +59,28 @@ export default class UserService {
       throw Error(e);
     }
   }
+
+  static async updateUserInfo(user) {
+    try {
+      if (localStorage.getItem('userData')) {
+        const token = JSON.parse(localStorage.getItem('userData')).user.token;
+        const response = await fetch(`${BASE_URL}/user`, {
+          method: 'PUT',
+          body: JSON.stringify(user),
+          headers: {
+            Authorization: `Token ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          return await response.json();
+        }
+      } else {
+        return;
+      }
+    } catch (e) {
+      throw Error(e);
+    }
+  }
 }

@@ -10,10 +10,19 @@ import cl from './EditArticlePage.module.css';
 
 function EditArticlePage() {
   const { user } = useSelector((state) => state.user);
+
+  function createArticleHandle(event) {
+    console.log(event);
+  }
+
   return (
     <div className={cl.article__edit}>
       <Navigation navigationItems={user ? authorizationConfig : unauthorizationConfig} />
-      <TemplateForm className={cl.article__form} content={editArticleFormConfig} />
+      <TemplateForm
+        className={cl.article__form}
+        content={editArticleFormConfig}
+        handleAction={createArticleHandle}
+      />
     </div>
   );
 }

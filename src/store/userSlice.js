@@ -48,12 +48,30 @@ export const getCurrentUser = createAsyncThunk(
   }
 );
 
+export const updateUserInfo = createAsyncThunk(
+  'user/updateUserInfo',
+  async function (updatedUser, { rejectWithValue }) {
+    try {
+      const user = await UserService.updateUserInfo(updatedUser);
+      return user;
+    } catch (error) {
+      console.log('error');
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: 'user',
   initialState: {
     user: null,
     status: '',
     error: null,
+  },
+  reducers: {
+    logoutUser(state) {
+      state.user = null;
+    },
   },
   extraReducers: {
     [createUser.pending]: (state) => {
@@ -78,7 +96,13 @@ const userSlice = createSlice({
       state.user = action.payload;
     },
     [getCurrentUser.rejected]: setError,
+    [updateUserInfo.fulfilled]: (state, action) => {
+      state.user = action.payload;
+      localStorage.setItem('userData', JSON.stringify(action.payload));
+    },
+    [getCurrentUser.rejected]: setError,
   },
 });
 
+export const { logoutUser } = userSlice.actions;
 export default userSlice.reducer;

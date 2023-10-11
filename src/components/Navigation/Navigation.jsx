@@ -21,7 +21,7 @@ function Navigation({ navigationItems }) {
                 to={navigation.path}
                 className={cl.navigation__link}
                 style={{ ...navigation.styles }}
-                onClick={(e) => console.log(e)}
+                onClick={navigation.handler ? navigation.handler : null}
               >
                 {navigation.title}
               </Link>

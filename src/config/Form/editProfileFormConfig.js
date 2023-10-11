@@ -8,17 +8,11 @@ export function editProfileForm(value) {
         label: 'Username',
         value: value && value.user.username,
         validate: {
-          name: 'validateUsername',
+          name: 'username',
           rules: {
             required: true,
-            validate: {
-              matchPattern: (email) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email),
-            },
           },
-          errors: [
-            { type: 'required', message: 'Username is required' },
-            { type: 'matchPattern', message: 'Username is not valid' },
-          ],
+          errors: [{ type: 'required', message: 'Username is required' }],
         },
       },
       {
@@ -27,7 +21,7 @@ export function editProfileForm(value) {
         label: 'Email address',
         value: value && value.user.email,
         validate: {
-          name: 'validateEmail',
+          name: 'email',
           rules: {
             required: true,
             validate: {
@@ -44,9 +38,9 @@ export function editProfileForm(value) {
         id: 'bio',
         type: 'text',
         label: 'Biography',
-        value: 'https://static.productionready.io/images/smiley-cyrus.jp',
+        value: value && value.user.bio,
         validate: {
-          name: 'validateBio',
+          name: 'bio',
           rules: { required: true },
           errors: [{ type: 'required', message: 'Bio is required' }],
         },
@@ -55,8 +49,19 @@ export function editProfileForm(value) {
         id: 'avatar',
         type: 'text',
         label: 'Avatar image (url)',
+        value: value && value.user.image,
         validate: {
-          name: 'validateAvatar',
+          name: 'image',
+          rules: { required: true },
+          errors: [{ type: 'required', message: 'Avatar is required' }],
+        },
+      },
+      {
+        id: 'password',
+        type: 'password',
+        label: 'New password',
+        validate: {
+          name: 'password',
           rules: { required: true },
           errors: [{ type: 'required', message: 'Password is required' }],
         },

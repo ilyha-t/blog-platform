@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Navigation from '../../components/Navigation/Navigation';
 import TemplateForm from '../../components/TemplateForm/TemplateForm';
@@ -13,16 +14,27 @@ import cl from './SignInPage.module.css';
 function SignInPage() {
   const { status } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  function logUser(userI) {
-    const newUser = {
-      user: {
-        username: userI.username,
-        email: userI.email,
-        password: userI.password,
-      },
-    };
-    dispatch(loginUser(newUser));
+  async function logUser(userI) {
+    try {
+      const newUser = {
+        user: {
+          username: userI.username,
+          email: userI.email,
+          password: userI.password,
+        },
+      };
+      const user = await dispatch(loginUser(newUser));
+
+      if (user.payload) {
+        navigate('/');
+      } else {
+        console.log('error login');
+      }
+    } catch (e) {
+      throw Error(e.message);
+    }
   }
 
   return (
