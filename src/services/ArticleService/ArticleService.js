@@ -18,4 +18,29 @@ export default class ArticleService {
       throw Error('Во время получения статьи произошла ошибка: ', error.message);
     }
   }
+
+  static async createArticle(newArticle) {
+    try {
+      console.log(JSON.stringify(newArticle));
+      if (localStorage.getItem('userData')) {
+        const token = JSON.parse(localStorage.getItem('userData')).user.token;
+        const response = await fetch(`${BASE_URL}/articles`, {
+          method: 'POST',
+          body: JSON.stringify(newArticle),
+          headers: {
+            Authorization: `Token ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          return await response.json();
+        }
+      } else {
+        return;
+      }
+    } catch (error) {
+      throw Error('Во время получения статьи произошла ошибка: ', error.message);
+    }
+  }
 }

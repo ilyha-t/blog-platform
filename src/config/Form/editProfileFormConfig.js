@@ -49,7 +49,7 @@ export function editProfileForm(value) {
         id: 'avatar',
         type: 'text',
         label: 'Avatar image (url)',
-        value: value && value.user.image,
+        value: 'https://api.realworld.io/images/smiley-cyrus.jpeg',
         validate: {
           name: 'image',
           rules: { required: true },

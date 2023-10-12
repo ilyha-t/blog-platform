@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../Button/Button';
+import { addTagToArticle, changeTagArticle, deleteTagArticle } from '../../../store/articleSlice';
 
 import cl from './TagsFragment.module.css';
 
@@ -15,38 +17,51 @@ const addBtn = {
 };
 
 function TagsFragment() {
-  const [tags, setTags] = useState([]);
+  const { myArticle } = useSelector((state) => state.article);
+  const dispatch = useDispatch();
 
   function addTag(event) {
     event.preventDefault();
-    setTags([...tags, { id: Date.now(), name: '' }]);
+    dispatch(addTagToArticle({ id: Date.now(), name: '' }));
   }
 
   function deleteTag(event) {
     event.preventDefault();
     const deletedId = event.target.parentNode.getAttribute('data-input-id');
-    setTags(tags.filter((tag) => tag.id != deletedId));
+    dispatch(deleteTagArticle(myArticle.tagList.filter((tag) => tag.id != deletedId)));
+  }
+
+  function changeTag(id, value) {
+    const findIndex = myArticle.tagList.findIndex((tag) => id === tag.id);
+    dispatch(
+      changeTagArticle([
+        ...myArticle.tagList.slice(0, findIndex),
+        { ...myArticle.tagList[findIndex], name: value },
+        ...myArticle.tagList.slice(findIndex + 1),
+      ])
+    );
   }
 
   return (
     <div>
       <span>Tags</span>
       <ul className={cl.tags}>
-        {tags.map((tag, index) => (
+        {myArticle.tagList.map((tag, index) => (
           <li className={cl.tags__item} key={tag.id} data-input-id={tag.id}>
             <input
               type="text"
               className={cl.tags__input}
               value={tag.name}
               placeholder={'Tag name'}
+              onChange={(event) => changeTag(tag.id, event.target.value)}
             />
             <Button text={'Delete'} styles={deleteBtn} onClick={deleteTag} />
-            {tags.length - 1 === index && (
+            {myArticle.tagList.length - 1 === index && (
               <Button text={'Add tag'} styles={addBtn} onClick={addTag} />
             )}
           </li>
         ))}
-        {tags.length === 0 && (
+        {myArticle.tagList.length === 0 && (
           <li className={cl.tags__item}>
             <Button text={'Add tag'} styles={addBtn} onClick={addTag} />
           </li>

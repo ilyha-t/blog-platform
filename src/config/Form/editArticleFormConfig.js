@@ -8,7 +8,7 @@ const editArticleFormConfig = {
       type: 'text',
       label: 'Title',
       validate: {
-        name: 'validateTitle',
+        name: 'title',
         rules: {
           required: true,
         },
@@ -20,7 +20,7 @@ const editArticleFormConfig = {
       type: 'text',
       label: 'Short description',
       validate: {
-        name: 'validateDescription',
+        name: 'description',
         rules: {
           required: true,
         },
@@ -28,12 +28,12 @@ const editArticleFormConfig = {
       },
     },
     {
-      id: 'text',
+      id: 'body',
       type: 'text',
       tagType: 'textarea',
       label: 'Text',
       validate: {
-        name: 'validateTextarea',
+        name: 'body',
         rules: { required: true },
         errors: [{ type: 'required', message: 'Text is required' }],
       },

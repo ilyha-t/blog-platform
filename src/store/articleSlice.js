@@ -35,6 +35,19 @@ export const getArticleBySlug = createAsyncThunk(
   }
 );
 
+export const createNewArticle = createAsyncThunk(
+  'article/createNewArticle',
+  async function (newArticle, { rejectWithValue }) {
+    try {
+      const article = await ArticleService.createArticle(newArticle);
+      return article;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const articleSlice = createSlice({
   name: 'article',
   initialState: {
@@ -49,12 +62,27 @@ const articleSlice = createSlice({
       error: null,
       article: {},
     },
+    myArticle: {
+      tagList: [],
+    },
     currentPage: 1,
   },
   reducers: {
     setPage(state, action) {
       console.log(action.payload);
       state.currentPage = action.payload.newPage;
+    },
+    addTagToArticle(state, action) {
+      state.myArticle.tagList = [...state.myArticle.tagList, action.payload];
+    },
+    deleteTagArticle(state, action) {
+      state.myArticle.tagList = action.payload;
+    },
+    changeTagArticle(state, action) {
+      state.myArticle.tagList = action.payload;
+    },
+    clearTags(state) {
+      state.myArticle.tagList = [];
     },
   },
   extraReducers: {
@@ -78,10 +106,19 @@ const articleSlice = createSlice({
       state.currentArticle.article = { ...action.payload.article };
       state.currentArticle.status = 'loaded';
     },
-    [getArticleBySlug.rejected]: setError,
+    [createNewArticle.rejected]: setError,
+    [getArticleBySlug.pending]: (state) => {
+      state.currentArticle.status = 'loading';
+      state.currentArticle.error = null;
+    },
+    [createNewArticle.fulfilled]: (state) => {
+      state.currentArticle.status = 'loaded';
+    },
+    [createNewArticle.rejected]: setError,
   },
 });
 
-export const { setPage } = articleSlice.actions;
+export const { setPage, addTagToArticle, deleteTagArticle, changeTagArticle, clearTags } =
+  articleSlice.actions;
 
 export default articleSlice.reducer;
