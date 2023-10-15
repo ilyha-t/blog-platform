@@ -40,6 +40,10 @@ function ProfilePage() {
     }
   }
 
+  if (!user) {
+    return navigate('/sign-in');
+  }
+
   return (
     <div className={cl.profile__page}>
       <Navigation navigationItems={user ? authorizationConfig : unauthorizationConfig} />

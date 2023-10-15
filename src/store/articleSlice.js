@@ -48,6 +48,54 @@ export const createNewArticle = createAsyncThunk(
   }
 );
 
+export const deleteArticle = createAsyncThunk(
+  'article/deleteArticle',
+  async function (slug, { rejectWithValue }) {
+    try {
+      const response = await ArticleService.deleteArticle(slug);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateArticle = createAsyncThunk(
+  'article/updateArticle',
+  async function ({ slug, article }, { rejectWithValue }) {
+    try {
+      const response = await ArticleService.updateArticle(slug, article);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const favoriteArticle = createAsyncThunk(
+  'article/favoriteArticle',
+  async function (slug, { rejectWithValue }) {
+    try {
+      const response = await ArticleService.favoriteArticle(slug);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const unfavoriteArticle = createAsyncThunk(
+  'article/unfavoriteArticle',
+  async function (slug, { rejectWithValue }) {
+    try {
+      const response = await ArticleService.unFavoriteArticle(slug);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const articleSlice = createSlice({
   name: 'article',
   initialState: {
@@ -73,7 +121,7 @@ const articleSlice = createSlice({
       state.currentPage = action.payload.newPage;
     },
     addTagToArticle(state, action) {
-      state.myArticle.tagList = [...state.myArticle.tagList, action.payload];
+      state.myArticle.tagList = [...state.myArticle.tagList, ...action.payload];
     },
     deleteTagArticle(state, action) {
       state.myArticle.tagList = action.payload;
@@ -83,6 +131,13 @@ const articleSlice = createSlice({
     },
     clearTags(state) {
       state.myArticle.tagList = [];
+    },
+    clearCurrentArticle(state) {
+      state.currentArticle = {
+        status: '',
+        error: null,
+        article: {},
+      };
     },
   },
   extraReducers: {
@@ -106,19 +161,49 @@ const articleSlice = createSlice({
       state.currentArticle.article = { ...action.payload.article };
       state.currentArticle.status = 'loaded';
     },
-    [createNewArticle.rejected]: setError,
-    [getArticleBySlug.pending]: (state) => {
+    [getArticleBySlug.rejected]: setError,
+    [createNewArticle.pending]: (state) => {
       state.currentArticle.status = 'loading';
       state.currentArticle.error = null;
     },
     [createNewArticle.fulfilled]: (state) => {
-      state.currentArticle.status = 'loaded';
+      state.currentArticle.status = '';
     },
     [createNewArticle.rejected]: setError,
+    [deleteArticle.pending]: (state) => {
+      state.currentArticle.status = 'loading';
+      state.currentArticle.error = null;
+    },
+    [deleteArticle.fulfilled]: (state) => {
+      state.currentArticle.status = 'loaded';
+    },
+    [deleteArticle.rejected]: setError,
+    [updateArticle.pending]: (state) => {
+      state.currentArticle.status = 'loading';
+      state.currentArticle.error = null;
+    },
+    [updateArticle.fulfilled]: (state) => {
+      state.currentArticle.status = 'loaded';
+    },
+    [updateArticle.rejected]: setError,
+    [favoriteArticle.fulfilled]: (state, action) => {
+      state.currentArticle.article = { ...action.payload.article };
+    },
+    [favoriteArticle.rejected]: setError,
+    [unfavoriteArticle.fulfilled]: (state, action) => {
+      state.currentArticle.article = { ...action.payload.article };
+    },
+    [unfavoriteArticle.rejected]: setError,
   },
 });
 
-export const { setPage, addTagToArticle, deleteTagArticle, changeTagArticle, clearTags } =
-  articleSlice.actions;
+export const {
+  setPage,
+  addTagToArticle,
+  deleteTagArticle,
+  changeTagArticle,
+  clearTags,
+  clearCurrentArticle,
+} = articleSlice.actions;
 
 export default articleSlice.reducer;

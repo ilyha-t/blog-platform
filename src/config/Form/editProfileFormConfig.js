@@ -49,11 +49,19 @@ export function editProfileForm(value) {
         id: 'avatar',
         type: 'text',
         label: 'Avatar image (url)',
-        value: 'https://api.realworld.io/images/smiley-cyrus.jpeg',
+        value: value && value.user.image,
         validate: {
           name: 'image',
-          rules: { required: true },
-          errors: [{ type: 'required', message: 'Avatar is required' }],
+          rules: {
+            required: true,
+            validate: {
+              matchPattern: (image) => /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(image),
+            },
+          },
+          errors: [
+            { type: 'required', message: 'Avatar is required' },
+            { type: 'matchPattern', message: 'Avatar is not valid' },
+          ],
         },
       },
       {
@@ -62,8 +70,12 @@ export function editProfileForm(value) {
         label: 'New password',
         validate: {
           name: 'password',
-          rules: { required: true },
-          errors: [{ type: 'required', message: 'Password is required' }],
+          rules: { required: true, minLength: 6, maxLength: 40 },
+          errors: [
+            { type: 'required', message: 'Password is required' },
+            { type: 'minLength', message: 'Min length 6 symbols' },
+            { type: 'maxLength', message: 'Max length 40 symbols' },
+          ],
         },
       },
     ],

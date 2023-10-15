@@ -9,8 +9,14 @@ const signUpForm = {
         name: 'username',
         rules: {
           required: true,
+          minLength: 3,
+          maxLength: 20,
         },
-        errors: [{ type: 'required', message: 'Username is required' }],
+        errors: [
+          { type: 'required', message: 'Username is required' },
+          { type: 'minLength', message: 'Min length 3 symbols' },
+          { type: 'maxLength', message: 'Max length 20 symbols' },
+        ],
       },
     },
     {
@@ -37,8 +43,12 @@ const signUpForm = {
       label: 'Password',
       validate: {
         name: 'password',
-        rules: { required: true },
-        errors: [{ type: 'required', message: 'Password is required' }],
+        rules: { required: true, minLength: 6, maxLength: 40 },
+        errors: [
+          { type: 'required', message: 'Password is required' },
+          { type: 'minLength', message: 'Min length 6 symbols' },
+          { type: 'maxLength', message: 'Max length 40 symbols' },
+        ],
       },
     },
     {
@@ -47,8 +57,12 @@ const signUpForm = {
       label: 'Repeat Password',
       validate: {
         name: 'passwordRepeat',
-        rules: { required: true },
-        errors: [{ type: 'required', message: 'Password is required' }],
+        rules: { required: true, minLength: 6, maxLength: 40 },
+        errors: [
+          { type: 'required', message: 'Password is required' },
+          { type: 'minLength', message: 'Min length 6 symbols' },
+          { type: 'maxLength', message: 'Max length 40 symbols' },
+        ],
       },
     },
     {

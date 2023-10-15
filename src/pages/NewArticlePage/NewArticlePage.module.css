@@ -1,0 +1,11 @@
+.article__edit {
+  background-color: #ebeef3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.article__form {
+  width: 940px;
+  margin: 34px auto;
+}

@@ -22,7 +22,7 @@ function TagsFragment() {
 
   function addTag(event) {
     event.preventDefault();
-    dispatch(addTagToArticle({ id: Date.now(), name: '' }));
+    dispatch(addTagToArticle([{ id: Date.now(), name: '' }]));
   }
 
   function deleteTag(event) {

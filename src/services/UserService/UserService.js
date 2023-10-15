@@ -29,8 +29,10 @@ export default class UserService {
         },
       });
 
-      if (response.ok) {
+      if (response.ok && (response.status >= 200 || response.status <= 299)) {
         return await response.json();
+      } else {
+        throw Error('User not valid');
       }
     } catch (e) {
       throw Error(e);
