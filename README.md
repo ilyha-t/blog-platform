@@ -1,0 +1,1 @@
+This application live here: https://blog-platform-seven-sigma.vercel.app/
