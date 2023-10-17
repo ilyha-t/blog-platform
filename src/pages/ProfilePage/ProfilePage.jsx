@@ -26,7 +26,6 @@ function ProfilePage() {
           ...userI,
         },
       };
-      console.log(newUser);
 
       const user = await dispatch(updateUserInfo(newUser));
 

@@ -3,8 +3,10 @@ import { format, parseISO } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { notification } from 'antd';
 
-import { favoriteArticle, getArticle, unfavoriteArticle } from '../../store/articleSlice';
+import { errorFavorite } from '../Messages/NotificationConfig/NotificationConfig';
+import { favoriteArticle, unfavoriteArticle } from '../../store/articleSlice';
 import avatar from '../../assets/avatar.png';
 import favorited from '../../assets/favorited.svg';
 import unfavorited from '../../assets/unfavorited.svg';
@@ -16,23 +18,20 @@ function handleErrorImage(e) {
 }
 
 function ArticleItem({ article }) {
+  const [api, contextHolder] = notification.useNotification();
   const dispatch = useDispatch();
-  const { currentPage } = useSelector((state) => state.article);
   const { user } = useSelector((state) => state.user);
 
   async function favoriteArticleHandler() {
     try {
       if (user) {
-        let response;
         if (article.favorited) {
-          response = await dispatch(unfavoriteArticle(article.slug));
+          dispatch(unfavoriteArticle(article.slug));
         } else {
-          response = await dispatch(favoriteArticle(article.slug));
-        }
-        if (response.payload) {
-          dispatch(getArticle(currentPage));
+          dispatch(favoriteArticle(article.slug));
         }
       } else {
+        errorFavorite(api, 'error');
         return;
       }
     } catch (error) {
@@ -42,6 +41,7 @@ function ArticleItem({ article }) {
 
   return (
     <div className={cl.article}>
+      {contextHolder}
       <div className={cl.article__content_left}>
         <div className={cl.article__title_block}>
           <h2 className={cl.article__title}>

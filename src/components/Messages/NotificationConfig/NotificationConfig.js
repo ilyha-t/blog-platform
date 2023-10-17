@@ -1,20 +1,27 @@
 export const errorPassword = (api, type) => {
   api[type]({
-    message: 'Password error',
-    description: 'The password must match. Please check your input.',
+    message: 'Ошибка в пароле',
+    description: 'Пароли не совпадают. Пожалуйста, повторите ввод.',
   });
 };
 
 export const errorLogin = (api, type) => {
   api[type]({
-    message: 'Login error',
-    description: 'Login error. Please check your authorization data.',
+    message: 'Ошибка входа',
+    description: 'Ошибка входа. Пожалуйста, проверьте введённые данные.',
   });
 };
 
 export const errorCreate = (api, type) => {
   api[type]({
-    message: 'Create error',
-    description: 'User with this username already exist.',
+    message: 'Ошибка создания',
+    description: 'Пользователь с таким именем или почтой уже существует.',
+  });
+};
+
+export const errorFavorite = (api, type) => {
+  api[type]({
+    message: 'Реакция не поставлена',
+    description: 'Ставить реакции могут только авторизированные пользователи.',
   });
 };

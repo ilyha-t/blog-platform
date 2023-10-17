@@ -1,20 +1,23 @@
-import { BASE_URL } from '../../config/config';
+import { BASE_URL, paginationNumber } from '../../config/config';
 
 export default class ArticleService {
-  static async getArticles(limit) {
+  static async getArticles(offset) {
     try {
       let token;
       if (localStorage.getItem('userData')) {
         token = JSON.parse(localStorage.getItem('userData')).user.token;
       }
 
-      const response = await fetch(`${BASE_URL}/articles?limit=${limit}`, {
-        method: 'GET',
-        headers: {
-          Authorization: token ? `Token ${token}` : '',
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `${BASE_URL}/articles?offset=${offset}&limit=${paginationNumber}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: token ? `Token ${token}` : '',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       return await response.json();
     } catch (error) {
       throw Error('Во время получения статей произошла ошибка: ', error.message);

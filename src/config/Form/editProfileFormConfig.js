@@ -1,3 +1,5 @@
+import { defaultAvatar } from '../config';
+
 export function editProfileForm(value) {
   return {
     title: 'Edit Profile',
@@ -49,7 +51,7 @@ export function editProfileForm(value) {
         id: 'avatar',
         type: 'text',
         label: 'Avatar image (url)',
-        value: value && value.user.image,
+        value: (value && value.user.image) || defaultAvatar,
         validate: {
           name: 'image',
           rules: {

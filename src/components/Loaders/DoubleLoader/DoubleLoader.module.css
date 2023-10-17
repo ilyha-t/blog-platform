@@ -123,12 +123,12 @@
 }
 
 .loading__window {
-  background-color: #fff;
+  background-color: #ebeef3;
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
-  width: 100vw;
+  width: 100%;
 }
 
 .loading__description {

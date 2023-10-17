@@ -8,15 +8,31 @@ const setError = (state, action) => {
   state.error = action.payload;
 };
 
+const updateArticles = (response, list) => {
+  if (response) {
+    const findIndex = list.findIndex((article) => article.slug === response.slug);
+    if (findIndex !== -1) {
+      return {
+        articles: [...list.slice(0, findIndex), response, ...list.slice(findIndex + 1)],
+        currentArticle: response,
+      };
+    } else {
+      return {
+        articles: list,
+        currentArticle: response,
+      };
+    }
+  }
+};
+
 export const getArticle = createAsyncThunk(
   'article/getArticle',
   async function (page, { rejectWithValue }) {
     try {
-      const newLimit = page * paginationNumber;
-      const articles = await ArticleService.getArticles(newLimit);
+      const offset = (page - 1) * paginationNumber;
+      const articles = await ArticleService.getArticles(offset);
       return articles;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.message);
     }
   }
@@ -29,7 +45,6 @@ export const getArticleBySlug = createAsyncThunk(
       const article = await ArticleService.getArticleBySlug(slug);
       return article;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.message);
     }
   }
@@ -42,7 +57,6 @@ export const createNewArticle = createAsyncThunk(
       const article = await ArticleService.createArticle(newArticle);
       return article;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.message);
     }
   }
@@ -117,7 +131,6 @@ const articleSlice = createSlice({
   },
   reducers: {
     setPage(state, action) {
-      console.log(action.payload);
       state.currentPage = action.payload.newPage;
     },
     addTagToArticle(state, action) {
@@ -157,7 +170,6 @@ const articleSlice = createSlice({
       state.currentArticle.error = null;
     },
     [getArticleBySlug.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.currentArticle.article = { ...action.payload.article };
       state.currentArticle.status = 'loaded';
     },
@@ -187,11 +199,21 @@ const articleSlice = createSlice({
     },
     [updateArticle.rejected]: setError,
     [favoriteArticle.fulfilled]: (state, action) => {
-      state.currentArticle.article = { ...action.payload.article };
+      const { articles, currentArticle } = updateArticles(
+        action.payload.article,
+        state.articles.list
+      );
+      state.articles.list = articles;
+      state.currentArticle = { status: 'loaded', error: null, article: currentArticle };
     },
     [favoriteArticle.rejected]: setError,
     [unfavoriteArticle.fulfilled]: (state, action) => {
-      state.currentArticle.article = { ...action.payload.article };
+      const { articles, currentArticle } = updateArticles(
+        action.payload.article,
+        state.articles.list
+      );
+      state.articles.list = articles;
+      state.currentArticle = { status: 'loaded', error: null, article: currentArticle };
     },
     [unfavoriteArticle.rejected]: setError,
   },

@@ -13,14 +13,13 @@ import {
   updateArticle,
 } from '../../store/articleSlice';
 import { getCurrentUser } from '../../store/userSlice';
-import DoubleLoader from '../../components/Loaders/DoubleLoader/DoubleLoader';
 
 import cl from './EditArticlePage.module.css';
 
 function EditArticlePage() {
   const { slug } = useParams();
   const { user } = useSelector((state) => state.user);
-  const { article, status } = useSelector((state) => state.article.currentArticle);
+  const { article } = useSelector((state) => state.article.currentArticle);
   const { myArticle } = useSelector((state) => state.article);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -77,7 +76,6 @@ function EditArticlePage() {
         content={editArticleFormConfig(article)}
         handleAction={updateArticleHandler}
       />
-      {status == 'loading' && <DoubleLoader textAction={'Загружаем...'} />}
     </div>
   );
 }

@@ -16,20 +16,6 @@ function ArticlesPage() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  function paginationRatedArticle(page) {
-    console.log('called');
-    const DEFAULT_SHOW = 5;
-    const results = articles.list;
-    console.log(results);
-    let afterPagination = results.filter(
-      (article) =>
-        results.indexOf(article) < DEFAULT_SHOW * page &&
-        results.indexOf(article) >= DEFAULT_SHOW * page - 5
-    );
-    console.log(afterPagination);
-    return afterPagination;
-  }
-
   useEffect(() => {
     dispatch(getArticle(currentPage));
     dispatch(getCurrentUser());
@@ -39,7 +25,7 @@ function ArticlesPage() {
     <div className={cl.articles__page}>
       <Navigation navigationItems={user ? authorizationConfig : unauthorizationConfig} />
       <div className={cl.articles__list}>
-        <ArticleList className={cl.articles_items} articles={paginationRatedArticle(currentPage)} />
+        <ArticleList className={cl.articles_items} articles={articles.list} />
         <Pagination
           className={cl.article__pagination}
           defaultCurrent={currentPage}

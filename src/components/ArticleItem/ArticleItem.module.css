@@ -10,6 +10,7 @@
   box-sizing: border-box;
   color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
+  animation: 1s ease alternate showContent;
 }
 
 .article__content_left {
@@ -134,4 +135,13 @@
   width: 46px;
   height: 46px;
   border-radius: 50%;
+}
+
+@keyframes showContent {
+  from {
+    scale: 0.8;
+  }
+  to {
+    scale: 1;
+  }
 }
