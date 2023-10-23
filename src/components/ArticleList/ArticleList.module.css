@@ -3,6 +3,10 @@
   flex-direction: column;
   gap: 10px;
   list-style-type: none;
-  max-height: 750px;
+  max-height: 780px;
   overflow: scroll;
+}
+
+.articles::-webkit-scrollbar {
+  width: 0;
 }

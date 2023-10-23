@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../Button/Button';
-import { addTagToArticle, changeTagArticle, deleteTagArticle } from '../../../store/articleSlice';
+import {
+  addTagToArticle,
+  changeTagArticle,
+  clearTags,
+  deleteTagArticle,
+} from '../../../store/articleSlice';
 
 import cl from './TagsFragment.module.css';
 
@@ -19,6 +24,10 @@ const addBtn = {
 function TagsFragment() {
   const { myArticle } = useSelector((state) => state.article);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearTags());
+  }, []);
 
   function addTag(event) {
     event.preventDefault();

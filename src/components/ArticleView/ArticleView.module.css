@@ -145,6 +145,10 @@
   max-height: 500px;
 }
 
+.article__body::-webkit-scrollbar {
+  width: 0;
+}
+
 .article__body ul,
 .article__body ol {
   list-style-position: inside;

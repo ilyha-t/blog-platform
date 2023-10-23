@@ -13,8 +13,12 @@ function editArticleFormConfig(article) {
           name: 'title',
           rules: {
             required: true,
+            pattern: /^(?!\s*$).+/,
           },
-          errors: [{ type: 'required', message: 'Title is required' }],
+          errors: [
+            { type: 'required', message: 'Title is required' },
+            { type: 'pattern', message: 'Description is not be empty' },
+          ],
         },
       },
       {
@@ -26,8 +30,12 @@ function editArticleFormConfig(article) {
           name: 'description',
           rules: {
             required: true,
+            pattern: /^(?!\s*$).+/,
           },
-          errors: [{ type: 'required', message: 'Description is required' }],
+          errors: [
+            { type: 'required', message: 'Description is required' },
+            { type: 'pattern', message: 'Description is not be empty' },
+          ],
         },
       },
       {
@@ -38,8 +46,11 @@ function editArticleFormConfig(article) {
         value: article.body,
         validate: {
           name: 'body',
-          rules: { required: true },
-          errors: [{ type: 'required', message: 'Text is required' }],
+          rules: { required: true, pattern: /^(?!\s*$).+/ },
+          errors: [
+            { type: 'required', message: 'Text is required' },
+            { type: 'pattern', message: 'Text is not be empty' },
+          ],
         },
         styles: {
           height: '160px',

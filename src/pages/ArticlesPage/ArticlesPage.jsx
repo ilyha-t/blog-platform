@@ -28,7 +28,7 @@ function ArticlesPage() {
         <ArticleList className={cl.articles_items} articles={articles.list} />
         <Pagination
           className={cl.article__pagination}
-          defaultCurrent={currentPage}
+          current={currentPage}
           defaultPageSize={5}
           total={articles.articlesCount}
           showSizeChanger={false}

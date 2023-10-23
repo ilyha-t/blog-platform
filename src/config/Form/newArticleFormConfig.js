@@ -10,9 +10,13 @@ const newArticleFormConfig = {
       validate: {
         name: 'title',
         rules: {
+          pattern: /^(?!\s*$).+/,
           required: true,
         },
-        errors: [{ type: 'required', message: 'Title is required' }],
+        errors: [
+          { type: 'required', message: 'Title is required' },
+          { type: 'pattern', message: 'Title is not be empty' },
+        ],
       },
     },
     {
@@ -22,9 +26,13 @@ const newArticleFormConfig = {
       validate: {
         name: 'description',
         rules: {
+          pattern: /^(?!\s*$).+/,
           required: true,
         },
-        errors: [{ type: 'required', message: 'Description is required' }],
+        errors: [
+          { type: 'required', message: 'Description is required' },
+          { type: 'pattern', message: 'Description is not be empty' },
+        ],
       },
     },
     {
@@ -34,8 +42,11 @@ const newArticleFormConfig = {
       label: 'Text',
       validate: {
         name: 'body',
-        rules: { required: true },
-        errors: [{ type: 'required', message: 'Text is required' }],
+        rules: { pattern: /^(?!\s*$).+/, required: true },
+        errors: [
+          { type: 'required', message: 'Text is required' },
+          { type: 'pattern', message: 'Text is not be empty' },
+        ],
       },
       styles: {
         height: '160px',

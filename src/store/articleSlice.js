@@ -127,11 +127,12 @@ const articleSlice = createSlice({
     myArticle: {
       tagList: [],
     },
-    currentPage: 1,
+    currentPage: sessionStorage.getItem('currentPage') | 1,
   },
   reducers: {
     setPage(state, action) {
       state.currentPage = action.payload.newPage;
+      sessionStorage.setItem('currentPage', action.payload.newPage);
     },
     addTagToArticle(state, action) {
       state.myArticle.tagList = [...state.myArticle.tagList, ...action.payload];
